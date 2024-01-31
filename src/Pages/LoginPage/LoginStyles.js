@@ -1,15 +1,15 @@
 export const wrapperStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    height: "200px",
-    justifyContent: "center",
-    padding: "20px"
-}
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  height: '200px',
+  justifyContent: 'center',
+  padding: '20px'
+};
 export const textField = {
-    margin: "10px",
-    width: "300px",
-}
+  margin: '10px',
+  width: '300px'
+};
 export const buttonStyle = {
-    width: "150px",
-}
+  width: '150px'
+};
