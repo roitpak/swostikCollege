@@ -2,7 +2,6 @@ export const wrapperStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '200px',
   justifyContent: 'center',
   padding: '20px'
 };

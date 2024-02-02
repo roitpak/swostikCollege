@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Checkbox, TextField } from '@mui/material';
 import { buttonStyle, textField, wrapperStyle } from './LoginStyles';
 import { useNavigate } from 'react-router-dom';
-import { Account, Client } from 'appwrite';
+import { Account, Client, ID } from 'appwrite';
 
 const client = new Client();
 
@@ -14,6 +14,10 @@ const account = new Account(client);
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+  const [signupMode, setSignupMode] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const [validated, setValidated] = useState(false);
 
@@ -40,6 +44,17 @@ function LoginPage() {
         console.log('Error occured:', err);
       });
   };
+  const onSignup = async () => {
+    await account
+      .create(ID.unique(), email, password, name)
+      .then((data) => {
+        navigate('/dashboard');
+        console.log('Email login data--->', data);
+      })
+      .catch((err) => {
+        console.log('Error occured:', err);
+      });
+  };
 
   return (
     <div style={wrapperStyle}>
@@ -56,6 +71,14 @@ function LoginPage() {
         label={'Password'}
         onChange={(event) => setPassword(event.target.value)}
       />
+      {signupMode && (
+        <TextField
+          value={name}
+          style={textField}
+          label={'Name'}
+          onChange={(event) => setName(event.target.value)}
+        />
+      )}
       <div>
         Show Password
         <Checkbox
@@ -63,12 +86,18 @@ function LoginPage() {
           onChange={(event) => setShowPassword(event.target.checked)}
         />
       </div>
+      <div>
+        {signupMode ? 'Already have an account? ' : 'Do not have an account? '}
+        <Button variant={'text'} onClick={() => setSignupMode(!signupMode)} style={buttonStyle}>
+          {signupMode ? 'Login' : 'Signup'}
+        </Button>
+      </div>
       <Button
-        onClick={onLoginPressed}
+        onClick={signupMode ? onSignup : onLoginPressed}
         disabled={!validated}
         style={buttonStyle}
         variant="contained">
-        Login
+        {signupMode ? 'Sign up' : 'Login'}
       </Button>
     </div>
   );
