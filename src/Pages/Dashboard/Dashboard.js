@@ -1,22 +1,15 @@
-import { Account, Client } from 'appwrite';
 import { useEffect } from 'react';
-
-const client = new Client();
-
-client
-  .setEndpoint(process.env.REACT_APP_APPWRITE_END_POINT)
-  .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);
-const account = new Account(client);
+import authService from '../../services/authService';
 
 function Dashboard() {
   useEffect(() => {
     getEmailSession();
   }, []);
   const getEmailSession = async () => {
-    await account
-      .get()
-      .then((data) => {
-        console.log(data);
+    await authService
+      .getUser()
+      .then((response) => {
+        console.log('User data--->', response);
       })
       .catch((err) => {
         console.log(err);
