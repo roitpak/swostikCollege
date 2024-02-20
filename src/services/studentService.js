@@ -26,7 +26,7 @@ export class StudentService {
     }
   }
 
-  async createStudent() {
+  async createStudent(data) {
     try {
       return await this.databases.createDocument(
         process.env.REACT_APP_APPWRITE_DATABASE_ID,
