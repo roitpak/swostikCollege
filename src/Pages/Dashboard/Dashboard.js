@@ -12,6 +12,13 @@ function Dashboard() {
   useEffect(() => {
     getEmailSession();
     getStudentList();
+    fetch(
+      `https://newsapi.org/v2/everything?q=tesla&from=2024-01-20&sortBy=publishedAt&apiKey=${process.env.REACT_APP_NEWS_API}`
+    )
+      .then((response) => console.log('Response---->', response.body))
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const getEmailSession = async () => {

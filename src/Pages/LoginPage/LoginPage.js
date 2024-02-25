@@ -17,7 +17,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Variable set in .env', process.env.REACT_APP_APPWRITE_END_POINT);
     // eslint-disable-next-line no-useless-escape
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (emailRegex.test(email) && password.length > 7) {
