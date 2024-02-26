@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import authService from '../../services/authService';
 import studentService from '../../services/studentService';
 import { Button, TextField } from '@mui/material';
+import { useUser } from '../../Context/useUser';
 
 function Dashboard() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [dob, setDob] = useState();
+
+  const { onLogout } = useUser();
 
   useEffect(() => {
     getEmailSession();
@@ -57,9 +60,15 @@ function Dashboard() {
         console.log(err);
       });
   };
+  const onClickLogout = () => {
+    onLogout();
+  };
 
   return (
     <div>
+      <Button variant={'contained'} onClick={onClickLogout} style={buttonStyle}>
+        {'Logout'}
+      </Button>
       <div style={createStudentStyle}>
         <TextField
           value={name}

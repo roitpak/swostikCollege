@@ -42,7 +42,7 @@ export class AuthService {
   }
   async logOutUser() {
     return await this.account
-      .logOutUser()
+      .deleteSessions()
       .then((response) => {
         return response;
       })

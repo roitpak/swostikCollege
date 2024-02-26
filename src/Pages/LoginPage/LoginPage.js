@@ -3,6 +3,7 @@ import { Button, Checkbox, TextField } from '@mui/material';
 import { buttonStyle, textField, wrapperStyle } from './LoginStyles';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
+import { useUser } from '../../Context/useUser';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,6 +16,8 @@ function LoginPage() {
   const [validated, setValidated] = useState(false);
 
   const navigate = useNavigate();
+
+  const { onLogin } = useUser();
 
   useEffect(() => {
     // eslint-disable-next-line no-useless-escape
@@ -29,7 +32,8 @@ function LoginPage() {
     await authService
       .createSession(email, password)
       .then((data) => {
-        navigate('/dashboard');
+        onLogin();
+        // navigate('/dashboard');
         console.log('Email login data--->', data);
       })
       .catch((err) => {
